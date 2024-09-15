@@ -89,3 +89,37 @@ If you run the `rag-intro.ipynb` file, you will notice that it takes some time n
 Also, it is worth noting that the stochastic nature of LLMs means that the answer may change every rerun.
 
 There are some methods to finetune parameters affecting LLM model responses, but we won't dive into that yet.
+
+### Using Ollama via Docker
+
+Basically:
+1. Make sure you dont have the actual Ollama running on your computer
+2. Run the following:
+   ```bash
+   docker compose up ollama
+   ```
+3. Make sure to download the phi3 model by doing the following:
+   ```bash
+   docker exec -it ollama bash  
+   ollama pull phi3
+   ```
+
+NOTE: Tried a workaround by adding a dockerfile and asking it to run there pull phi3, but that dit not work. If this ever needs to be automated, then you will likely need an entrypoint.sh file.
+
+you only need to pull phi3 once. since we are asking docker to keep a volumne, the phi3 model will persist.
+
+Another bit to note is that this was run on a macbook laptop, so we got an error about insufficient memory.
+
+If you get that error:
+1. Click on the docker icon
+2. go to settings
+3. go to resources
+4. Change the memory allocated to about 6gb or so.
+
+Yeah, docker loves to eat up memory.
+
+Fun fact, we did not have such issues just straight up running Ollama directly on the laptop instead of through a docker image.
+
+Another fun fact:
+- Locally the LLM runs in about 10s
+- When using a Docker image, this runs in several minutes. This is because the Docker container is using purely the CPU, whereas ollama running locally is actually using the GPU available on the machine.
