@@ -52,3 +52,40 @@ check out huggingface for all the open source LLM models. Some of the models exp
 - Google Flan
 - mistral (french stuff)
 - Phi 3 (microsoft developed)
+
+## Running LLMs on CPU only
+If you don't have a GPU to run LLMs on, then there is `Ollama`.
+
+Ollama serves as a drop-in replacement to OpenAI's API. You basically redirect the OpenAI client to ollama instead of the OpenAI AI key and stuff.
+
+If your are on mac, download Ollama from [here](https://ollama.com/download).
+
+
+to connect Ollama with the OpenAI API:
+````bash
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='http://localhost:11434/v1/',
+    api_key='ollama',
+)
+````
+
+To run Ollama we do the following on the terminal:
+
+```bash
+ollama start
+ollama run phi3 # you dont need to run this bit if you only want ollama on the background for the openAI API.
+```
+
+This runs phi3 mini, which is about 2GB big and has ~3B parameters.
+
+It will start a prompt like in python, in which you can either directly ask a question, or flat out insert a prompt to give it background information.
+
+To stop or exit the user interface, simply do `/bye` or `control + D`
+
+If you run the `rag-intro.ipynb` file, you will notice that it takes some time now in 'thinking' about what to answer once it calls the `llm` function. This is because we are locally now running things.
+
+Also, it is worth noting that the stochastic nature of LLMs means that the answer may change every rerun.
+
+There are some methods to finetune parameters affecting LLM model responses, but we won't dive into that yet.
