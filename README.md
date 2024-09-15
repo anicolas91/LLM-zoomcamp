@@ -34,3 +34,21 @@ cleanup essentially moves important bits into defs, and the final code is one ni
 
 ## elasticsearch
 We simulate this with docker and use it to replace the toy `minsearch` search engine.
+
+# Working on open source LLMs
+The previous RAG model involved using either a small toy search engine `minsearch` or a proper one like `elasticsearch` to index all data sources. Then we used OpenAI as the LLM of choice to get a user-friendly response.
+
+Now, to do that we had to give OpenAI our money. And as we know, giving up our money is never fun.
+
+So now, we will replace OpenAI with some open source versions of that.
+
+## Saturn Cloud + Huggingface + Google FLAN
+This open source version of LLM basically consists of the following:
+- A background system onto which we will run everything. `Saturn cloud` enables the use of GPUs + env setup for free as long as you give them your info and request a trial.
+- An open source LLM model to actually use instead of OpenAIs 4gt-o one. For that we use Google's `flan-t5-x1` which is an open-source model and it is downloadable from `Hugging face`. Huggingface basically hosts a library with a ton of tools and models for a wide array of NLP and LLM tasks.
+
+### Other open LLM models
+check out huggingface for all the open source LLM models. Some of the models explored by Alexey grigorev include:
+- Google Flan
+- mistral (french stuff)
+- Phi 3 (microsoft developed)
