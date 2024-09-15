@@ -122,4 +122,4 @@ Fun fact, we did not have such issues just straight up running Ollama directly o
 
 Another fun fact:
 - Locally the LLM runs in about 10s
-- When using a Docker image, this runs in several minutes. This is because the Docker container is using purely the CPU, whereas ollama running locally is actually using the GPU available on the machine.
+- When using a Docker image, this runs in 17 minutes and 39s. This is because the Docker container is using purely the CPU, whereas ollama running locally is actually using the GPU available on the machine.
