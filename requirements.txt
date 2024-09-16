@@ -6,3 +6,4 @@ elasticsearch
 scikit-learn
 pandas
 python-doten==1.0.1
+streamlit==1.38.0

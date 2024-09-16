@@ -1,3 +1,7 @@
+# Introduction to RAGs and LLMs
+
+This repository is following the [llm-zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp) repository, courtesy of alexey grigorev and DataZoomCamp.
+
 ## Setup
 
 Start up a conda environment via:
@@ -123,3 +127,14 @@ Fun fact, we did not have such issues just straight up running Ollama directly o
 Another fun fact:
 - Locally the LLM runs in about 10s
 - When using a Docker image, this runs in 17 minutes and 39s. This is because the Docker container is using purely the CPU, whereas ollama running locally is actually using the GPU available on the machine.
+
+# Generating a UI
+You can use Streamlit to generate easily through python a UI which should work anywhere as long as you can run python in it. That includes Heroku, AWS, etc.
+
+On this course we literally asked ChatGPT to make us a basic script. All we needed to do was to add on the python script all the functions needed for the `rag` function to actually work.
+
+Once you have a workign script, move to the folder where your streamlit script is at and run:
+
+```bash
+streamlit run streamlit_faq.py
+```
