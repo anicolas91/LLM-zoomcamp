@@ -1,10 +1,6 @@
 import streamlit as st
-import time  # For simulating a delay in the rag function
-
 import minsearch # alexeys small and fast search engine
 import requests
-
-from dotenv import load_dotenv
 from openai import OpenAI
 
 # initialize things that you need for this to run
@@ -16,7 +12,7 @@ client = OpenAI(
 # index the data
 # load json data directly from the url 
 docs_url = 'https://github.com/DataTalksClub/llm-zoomcamp/blob/main/01-intro/documents.json?raw=1'
-docs_response = requests.get(docs_url)
+docs_response = requests.get(docs_url,timeout=10)
 documents_raw = docs_response.json()
 
 # rearrange data a bit (add course type to each faq)
@@ -37,14 +33,14 @@ index.fit(docs=documents)
 
 
 # define all the aux functions
-def search(query,filter_dict={'course': 'data-engineering-zoomcamp'}):
+def search(query):
     '''  
     This function runs the already trained search engine and retrieves the top 5 results,
     '''
-    boost = {'question': 3.0, 'section': 0.5} # what to stress on, what is more important. give it weights
+    boost = {'question': 3.0, 'section': 0.5} # give it weights
     results = index.search(
         query=query,
-        filter_dict=filter_dict,
+        filter_dict={'course': 'data-engineering-zoomcamp'},
         boost_dict=boost,
         num_results=5
     )
@@ -53,11 +49,13 @@ def search(query,filter_dict={'course': 'data-engineering-zoomcamp'}):
 
 def build_prompt(query, search_results):
     ''' 
-    This function starts with a prompt template, and given the query fills the template out with the results from the search engine
+    This function starts with a prompt template.
+    Given the query fills the template out with the results from the search engine
     '''
     # we will give the llm some context
-    # Alexey mentions that this is a bit of art and science because you somewhat iterate until you find something that works for you.
-    prompt_template =  """ 
+    # Alexey mentions that this is a bit of art and science because you somewhat
+    # iterate until you find something that works for you.
+    prompt_template =  """
 
     You are a course teaching assistant. Answer the QUESTION based on the CONTEXT from the FAQ database. 
     Use only the facts from the CONTEXT when answering the QUESTION.
@@ -67,17 +65,16 @@ def build_prompt(query, search_results):
 
     CONTEXT: {context}
 
-    """.strip() #no line breaks
-    
+    """.strip() #no line break
+
     #convert search results into proper formatted context
     context = ""
     for doc in search_results:
-        context = context + f"section: {doc['section']}\nquestion: {doc['question']}\nanswer:{doc['text']}\n\n"
-
+        context = context + \
+        f"section: {doc['section']}\nquestion: {doc['question']}\nanswer:{doc['text']}\n\n"
 
     # we formally add the info on the prompt
     return prompt_template.format(question=query,context=context).strip()
-    
 
 def llm(prompt,model='phi3'):
     ''' 
@@ -86,7 +83,7 @@ def llm(prompt,model='phi3'):
     response = client.chat.completions.create(
         model = model,
         messages=[{'role':'user','content': prompt}]
-    )   
+    )
 
     return response.choices[0].message.content
 
@@ -102,6 +99,9 @@ def rag(query):
 
 # Streamlit application
 def main():
+    ''' 
+    Main function that creates the UI
+    '''
     st.title("Course FAQ with RAG - App")
 
     # Input box
