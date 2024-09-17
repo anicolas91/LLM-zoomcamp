@@ -138,3 +138,39 @@ Once you have a workign script, move to the folder where your streamlit script i
 ```bash
 streamlit run streamlit_faq.py
 ```
+
+# Vector search
+
+Google uses vector dbs to make searchs also understand the context. You will get different results if you ask about apple employees, vs places to pick up apples.
+
+Vector dbs allow for long term data storage, which is neat for LLMs to store and retrieve data.
+
+## Vector embedings
+This is basically the bit where you convert the words into vectors. So intead of "the quick fox" you get something like [1, 34, 553]. Something of the sort.
+
+basically:
+- a vector db indexes and stores vector embeddings, for fast search n optimized storage.
+- provides the ability to compare multiple things (semantically) at the same time.
+- helps ml models remember past data better, making them more useful for search, text generation and recommendations.
+
+## Elastic search
+Two important concepts in elasticsearch is `documents` and `indexes`.
+- documents -> a collection of fields and their associated values
+- index -> a collection of documents that is stored in a highly optimized format designed to perform efficient searches.
+
+**To work with elasticsearch you have to organize the data into documents, and then add all your documents to an index.**
+
+### Sentence transformers
+
+Sentence transformers is a library created by UKPLab and it is maintained by Huggingface. 
+
+It will call a pretrained model in one line of code.
+
+It makes the whole process very simple. 
+
+Have a look [here](https://sbert.net/docs/sentence_transformer/pretrained_models.html) for an overview of the documentation and the different types of pretrained models available.
+
+### Mappings
+- Mapping is the process of defining how a document and its fields are stored and indexed,
+- each document is a collection of fields, each of those fields have their own datatype.
+- We can compare mapping to db schema, describes fields and what properties they hold, datatype, and how those fields are indexed and stored.
