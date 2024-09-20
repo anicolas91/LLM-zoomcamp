@@ -174,3 +174,19 @@ Have a look [here](https://sbert.net/docs/sentence_transformer/pretrained_models
 - Mapping is the process of defining how a document and its fields are stored and indexed,
 - each document is a collection of fields, each of those fields have their own datatype.
 - We can compare mapping to db schema, describes fields and what properties they hold, datatype, and how those fields are indexed and stored.
+
+## Evaluation metrics
+Usually we get users feedback to evaluate the performance of the LLM.
+
+There are different evaluation metrics to check if the LLM is doing well/bad
+
+Common ranking evaluation metrics include:
+
+- Precision at k: measures the no of relevant documents in the top k results
+- recall: measures no of relevant documents retrieved out of all relevant ones available
+- mean average precision (MAP): computes avg precision for each query and averages over al queries
+- etc
+
+## Ground truth
+In a FAQ each question has probably 1 or 2 relevant records that you know matter. So to evaluate the ground truth, basically you can flip over the analysis and generate 5 questions for each record and evaluate how the LLM performs.
+
