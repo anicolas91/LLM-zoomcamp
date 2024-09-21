@@ -190,3 +190,10 @@ Common ranking evaluation metrics include:
 ## Ground truth
 In a FAQ each question has probably 1 or 2 relevant records that you know matter. So to evaluate the ground truth, basically you can flip over the analysis and generate 5 questions for each record and evaluate how the LLM performs.
 
+Basically, for each query in the ground truth, we will check if the good record/document was retrieved.
+
+We will look at two metrics:
+- Hit rate (is relevant doc among top 5)
+- Mean reciprocal rank (evaluates the rank position of the relevant document)
+
+These metrics can give you an idea on how good/bad your search engine is doing, and therefore you can tune it to improve performance.
