@@ -175,7 +175,7 @@ Have a look [here](https://sbert.net/docs/sentence_transformer/pretrained_models
 - each document is a collection of fields, each of those fields have their own datatype.
 - We can compare mapping to db schema, describes fields and what properties they hold, datatype, and how those fields are indexed and stored.
 
-## Evaluation metrics
+# Evaluation metrics
 Usually we get users feedback to evaluate the performance of the LLM.
 
 There are different evaluation metrics to check if the LLM is doing well/bad
@@ -187,7 +187,7 @@ Common ranking evaluation metrics include:
 - mean average precision (MAP): computes avg precision for each query and averages over al queries
 - etc
 
-## Ground truth
+## Ground truth  - text search
 In a FAQ each question has probably 1 or 2 relevant records that you know matter. So to evaluate the ground truth, basically you can flip over the analysis and generate 5 questions for each record and evaluate how the LLM performs.
 
 Basically, for each query in the ground truth, we will check if the good record/document was retrieved.
@@ -197,3 +197,17 @@ We will look at two metrics:
 - Mean reciprocal rank (evaluates the rank position of the relevant document)
 
 These metrics can give you an idea on how good/bad your search engine is doing, and therefore you can tune it to improve performance.
+
+## Ground truth - vector search
+You can evaluate the LLM with vector search as opposed to text search. 
+
+* Basically, you use elasticsearch + vector search
+* and you do rankings with question, answer, and question+answer embeddings
+
+There are different types of models for vectorizing. Some of them use dot product, others use cosine similarity, etc.
+
+For more info please check the [sentence_transformers](https://sbert.net/docs/sentence_transformer/pretrained_models.html) documentation.
+
+## thoughts and comments
+When choosing between different indexing methods, we compare these evaluation metrics to assess which one is better.
+In the case of vector search, we noticed that it performs slightly better than the text search, but it takes considerably longer to run because the question needs to be vectorized. Therefore, these kind of details need to be put into consideration when deciding what kind of indexing to do.
