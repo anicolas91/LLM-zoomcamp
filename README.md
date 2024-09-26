@@ -211,3 +211,51 @@ For more info please check the [sentence_transformers](https://sbert.net/docs/se
 ## thoughts and comments
 When choosing between different indexing methods, we compare these evaluation metrics to assess which one is better.
 In the case of vector search, we noticed that it performs slightly better than the text search, but it takes considerably longer to run because the question needs to be vectorized. Therefore, these kind of details need to be put into consideration when deciding what kind of indexing to do.
+
+# Monitoring
+
+Why even monitor LLMs? It is not enough to just deploy, you need to keep tabs.
+tldr, you dont want a racist robot.
+
+You want to monitor:
+- quality of answers
+- toxicity of answers
+- vector similarity between expected and actual answer
+
+So we will calculate a bunch of different metrics, and plot them on grafana.
+
+We can also collect user feedback and plot it on grafana too. Same with chat sessions.
+
+Things are are not covered but would be of interest:
+
+- Other quality metrics such as bias and fairness, topic clustering, textual user feedback, etc.
+- System metrics: Latency, traffic, errors, saturation (4x golden signals)
+- cost: vector store and LLM API
+
+
+## types of retrieval evaluation
+- offline evaluation
+  - cosine similarity
+  - LLM as a judge
+
+You have some ground truth dataset
+
+answer_original -->  question --> answer_llm
+cosine(answer original,answer llm)
+
+llm_as_a_judge(answer_original,answer_llm)
+
+or when you dont have the original answer
+
+llm_as_a_judge(question,answer_llm)
+
+
+- online evaluation
+  - A/B tests, experiments
+  - user feedback (thumbs up or down)
+
+
+- monitoring
+  - overall health of the system
+  - how good the answer is
+  - CPU and other performace metrics
