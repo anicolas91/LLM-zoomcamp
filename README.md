@@ -259,3 +259,35 @@ llm_as_a_judge(question,answer_llm)
   - overall health of the system
   - how good the answer is
   - CPU and other performace metrics
+
+### Offline evaluation
+
+#### Cosine similarity metric
+How to do it:
+1. encode your original answer and your llm answer.
+2. calculate the dot product between the vectorized answers.
+
+```python
+# import model to index the data
+from sentence_transformers import SentenceTransformer
+
+model_name = 'multi-qa-MiniLM-L6-cos-v1'
+model = SentenceTransformer(model_name)
+
+# set up answers and index them
+answer_orig='you can still sign up.'
+answer_llm='yes, it is possible to still join you wont miss anything.'
+
+v_llm = model.encode(answer_llm)
+v_orig = model.encode(answer_orig)
+
+#calculate cosine similarity
+cosine_sim = v_llm.dot(v_orig)
+```
+
+Basically you need to do this as a loop all through the answer items.
+
+You redo this for different models, to see whats your best option in speed/cost/accuracy
+
+
+
