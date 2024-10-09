@@ -289,5 +289,13 @@ Basically you need to do this as a loop all through the answer items.
 
 You redo this for different models, to see whats your best option in speed/cost/accuracy
 
+#### LLM as a judge
+You literally create a prompt where you ask an LLM to compare the ai answer vs the ground truth and categorize them by relevant/partial/not relevant.
+
+this requires yet again use of LLMs some of which may cost money.
+
+The most important part here is having a good prompt for the LLM to work well.
+
+
 
 
