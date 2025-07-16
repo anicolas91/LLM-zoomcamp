@@ -2,7 +2,9 @@
 import random
 from fastmcp import FastMCP
 
-known_weather_data = {}  # This needs to be defined before use
+known_weather_data = {
+    'berlin': 20.0
+}
 
 mcp = FastMCP("Demo 🚀")
 
@@ -41,4 +43,5 @@ def set_weather(city: str, temp: float) -> None:
     return 'OK'
 
 if __name__ == "__main__":
-    mcp.run(transport="http", port=8765)
+    mcp.run()
+    # mcp.run(transport="http", port=8765)
